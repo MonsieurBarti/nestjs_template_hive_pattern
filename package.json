@@ -17,6 +17,9 @@
     "test:watch": "vitest",
     "test:cov": "vitest run --coverage",
     "test:ui": "vitest --ui",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio",
     "prepare": "husky"
   },
   "dependencies": {
@@ -26,6 +29,7 @@
     "@nestjs/cqrs": "^11.0.3",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^11.2.3",
+    "@prisma/client": "6.19.0",
     "fastify": "^5.6.2",
     "nestjs-pino": "^4.4.1",
     "pino-http": "^10.5.0",
@@ -51,6 +55,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "^3.0.0",
+    "prisma": "6.19.0",
     "source-map-support": "^0.5.21",
     "supertest": "^7.0.0",
     "ts-loader": "^9.4.3",

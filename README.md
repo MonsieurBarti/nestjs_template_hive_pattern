@@ -55,9 +55,32 @@ NODE_ENV=development
 PORT=3000
 LOG_LEVEL=info
 IS_LOCAL=true
+DATABASE_URL="postgresql://user:password@localhost:5432/mydb?schema=public"
 ```
 
 Environment variables are validated on startup using Zod. See [`src/config/index.ts`](src/config/index.ts) for the schema.
+
+### Database Setup
+
+This template uses Prisma for database access. See [`DATABASE.md`](DATABASE.md) for complete setup instructions.
+
+**Quick start:**
+
+```bash
+# Copy environment file
+cp .env.example .env
+
+# Start PostgreSQL with Docker
+docker-compose up -d postgres
+
+# Generate Prisma Client
+npm run prisma:generate
+
+# Run migrations
+npm run prisma:migrate
+```
+
+The template includes both InMemory (for testing) and SQL (for production) repository implementations.
 
 ### Development
 

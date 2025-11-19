@@ -1,24 +1,27 @@
 version: '3.8'
 
 services:
-  api:
+  app:
     build: .
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/hive_db
       - NODE_ENV=development
+      - DATABASE_URL=postgresql://nest_user:nest_password@postgres:5432/nest_db?schema=public
     depends_on:
-      - db
+      - postgres
+    volumes:
+      - .:/app
+      - /app/node_modules
 
-  db:
-    image: postgres:15-alpine
+  postgres:
+    image: postgres:16-alpine
     ports:
-      - "5432:5432"
+      - '5432:5432'
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=hive_db
+      - POSTGRES_USER=nest_user
+      - POSTGRES_PASSWORD=nest_password
+      - POSTGRES_DB=nest_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
