@@ -2,26 +2,19 @@
  * Base class for all domain errors in feature modules.
  *
  * This class provides:
- * - Sentry reporting control via `reportToSentry` flag
- * - Correlation ID propagation for request tracing
- * - Standardized error codes for API consumers
- * - Metadata attachment for additional context
- * - Timestamp tracking for when error occurred
+ * - Sentry reporting control via `shouldReport` flag
+ * - Correlation ID propagation for/**
+ * Base class for all domain errors.
+ *
+ * Domain errors represent business rule violations or invalid states
+ * in the domain layer. They should be caught and handled appropriately
+ * in the application or presentation layers.
  *
  * @example
  * ```typescript
- * export class VoucherNotFoundError extends BaseDomainError {
- *   readonly errorCode = "VOUCHER_NOT_FOUND";
- *
- *   constructor(options?: {
- *     correlationId?: string;
- *     voucherId?: string;
- *   }) {
- *     super("Voucher not found or invalid", {
- *       reportToSentry: false, // User error, don't spam Sentry
- *       correlationId: options?.correlationId,
- *       metadata: { voucherId: options?.voucherId },
- *     });
+ * export class ArticleNotFoundError extends BaseDomainError {
+ *   constructor(id: string) {
+ *     super(`Article with ID ${id} not found`);
  *   }
  * }
  * ```
@@ -46,7 +39,7 @@ export abstract class BaseDomainError extends Error {
    *
    * @default true
    */
-  readonly reportToSentry: boolean;
+  readonly shouldReport: boolean;
 
   /**
    * Correlation ID for distributed tracing across request lifecycle.
@@ -76,7 +69,7 @@ export abstract class BaseDomainError extends Error {
        * Whether to report this error to Sentry.
        * @default true
        */
-      reportToSentry?: boolean;
+      shouldReport?: boolean;
 
       /**
        * Correlation ID from @CorrelationId() decorator.
@@ -102,7 +95,7 @@ export abstract class BaseDomainError extends Error {
     this.name = this.constructor.name;
 
     // Default to not reporting to Sentry unless explicitly enabled
-    this.reportToSentry = options?.reportToSentry ?? false;
+    this.shouldReport = options?.shouldReport ?? false;
 
     // Store correlation ID for request tracing
     this.correlationId = options?.correlationId;

@@ -17,7 +17,7 @@ import { LoggerModuleNames } from '@/modules/logger/base/types/extra-params.type
  * Base exception filter for feature modules.
  *
  * Provides common error handling logic including:
- * - Sentry reporting (based on error.reportToSentry flag)
+ * - Sentry reporting (based on error.shouldReport flag)
  * - Structured logging with correlation IDs
  * - RFC 9457 Problem Details responses
  * - Request/user context extraction
@@ -69,8 +69,8 @@ export abstract class BaseFeatureExceptionFilter<
     this.logError(error, correlationId);
 
     // Report to Sentry if flag is set
-    if (error.reportToSentry) {
-      this.reportToSentry(error, request, correlationId);
+    if (error.shouldReport) {
+      this.shouldReport(error, request, correlationId);
     }
 
     // Map to HTTP status code
@@ -95,9 +95,9 @@ export abstract class BaseFeatureExceptionFilter<
    *
    * @example
    * ```typescript
-   * protected mapErrorToStatus(error: VoucherError): number {
-   *   if (error instanceof VoucherNotFoundError) return HttpStatus.NOT_FOUND;
-   *   if (error instanceof VoucherExpiredError) return HttpStatus.GONE;
+   * protected mapErrorToStatus(error: ArticleError): number {
+   *   if (error instanceof ArticleNotFoundError) return HttpStatus.NOT_FOUND;
+   *   if (error instanceof ArticleAlreadyPublishedError) return HttpStatus.CONFLICT;
    *   // Fallback: unmapped errors indicate bugs or missing handlers
    *   return HttpStatus.INTERNAL_SERVER_ERROR;
    * }
@@ -117,7 +117,7 @@ export abstract class BaseFeatureExceptionFilter<
    * ```
    */
   protected getModuleName(): string {
-    // Convert "VoucherExceptionFilter" -> "voucher"
+    // Convert "ArticleExceptionFilter" -> "article"
     return this.constructor.name.replace('ExceptionFilter', '').toLowerCase();
   }
 
@@ -160,7 +160,7 @@ export abstract class BaseFeatureExceptionFilter<
   /**
    * Reports error to Sentry with full context.
    */
-  private reportToSentry(
+  private shouldReport(
     error: TError,
     request: FastifyRequest,
     correlationId: string,
