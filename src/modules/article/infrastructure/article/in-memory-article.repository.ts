@@ -13,4 +13,8 @@ export class InMemoryArticleRepository implements IArticleRepository {
   async findById(id: string): Promise<Article | null> {
     return this.articles.get(id) || null;
   }
+
+  async findAll(): Promise<Article[]> {
+    return Array.from(this.articles.values());
+  }
 }

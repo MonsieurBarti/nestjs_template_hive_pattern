@@ -57,29 +57,26 @@
 
 ---
 
+---
+
 ## 👣 Workflow: Creating a New Feature
 
-**Refer to `ARCHITECTURE.md` for the folder structure.**
+**For detailed step-by-step workflows, see [`.agent/workflows/`](../../.agent/workflows/):**
 
-1.  **Domain (The What)**:
-    - Create Entity (`domain/[entity].ts`) with Zod factory.
-    - Create Repository Interface (`domain/[entity].repository.ts`).
+- **[`/create-feature`](../../.agent/workflows/create-feature.md)** - Complete guide to creating a new module from scratch
+- **[`/add-command`](../../.agent/workflows/add-command.md)** - Add a new command to an existing module
+- **[`/add-query`](../../.agent/workflows/add-query.md)** - Add a new query to an existing module
+- **[`/run-tests`](../../.agent/workflows/run-tests.md)** - Run and debug tests
 
-2.  **Infrastructure (The How)**:
-    - Create Mapper (`infrastructure/sql-[entity].mapper.ts`).
-    - Create Repository Implementation (`infrastructure/sql-[entity].repository.ts`).
+**Quick Overview:**
 
-3.  **Application (The Actions)**:
-    - Create Commands (`application/commands/`).
-    - Create Queries (`application/queries/`).
+1. **Domain** → Create entity and repository interface
+2. **Infrastructure** → Create mapper and repository implementation
+3. **Application** → Create commands and queries
+4. **Presentation** → Create DTOs and controller
+5. **Wiring** → Define tokens and register in module
 
-4.  **Presentation (The Interface)**:
-    - Create Zod DTOs (`presentation/dto/`) with `@ApiProperty`.
-    - Create Controller (`presentation/controllers/`) with `@ApiOperation` and `@ApiResponse`.
-
-5.  **Wiring (The Glue)**:
-    - Define Tokens (`[feature].tokens.ts`).
-    - Register in Module (`[feature].module.ts`).
+For detailed instructions with examples, follow the `/create-feature` workflow.
 
 ---
 
@@ -113,3 +110,104 @@
 - **Examples**: Always provide realistic examples in `@ApiProperty`.
 - **Descriptions**: Add descriptions for non-obvious fields.
 - **Type Safety**: Return explicit DTO types from controllers, not inline types.
+
+---
+
+## 🧪 Testing Strategy
+
+**EVERY feature MUST have comprehensive tests.**
+
+### Test Structure
+
+Tests should be co-located with the code they test:
+
+```
+application/commands/create-article/
+├── create-article.command.ts
+└── create-article.command.spec.ts
+```
+
+### Test Layers
+
+1.  **Domain Tests** (`domain/[entity]/[entity].spec.ts`):
+    - Test entity factory methods (`create()`, `createNew()`)
+    - Test business logic methods (e.g., `publish()`, `approve()`)
+    - Test validation rules (Zod schema)
+    - **No mocks needed** - pure unit tests
+
+2.  **Handler Tests** (`application/commands|queries/[name]/[name].spec.ts`):
+    - Use direct instantiation with InMemoryRepository
+    - No mocks - use real repository implementation
+    - Test command/query execution
+    - Test error handling
+
+3.  **Integration Tests** (optional, `test/` directory):
+    - Test full HTTP flow
+    - Use `supertest` for API calls
+    - Test with real database (or test container)
+
+### Testing Best Practices
+
+- **Use InMemoryRepositories**: Create `in-memory-[entity].repository.ts` using `Map<string, Entity>` for storage.
+- **Type as Concrete Class**: In tests, type the repository as `InMemory[Entity]Repository`, not the interface. This allows access to test-only methods like `findAll()`.
+- **Test-Only Methods**: Add helper methods (e.g., `findAll()`) to InMemory implementations for test assertions. These should NOT be in the interface.
+- **Avoid Mocks for Repositories**: Use real InMemory implementations instead of `vi.fn()` mocks.
+- **Direct Instantiation**: Instantiate handlers directly with dependencies (no NestJS testing module needed).
+- **Test Behavior, Not Implementation**: Focus on what the code does, not how it does it.
+- **Arrange-Act-Assert**: Structure tests clearly with setup, execution, and verification.
+- **Descriptive Test Names**: Use `should [expected behavior] when [condition]`.
+
+### Example Test Structure
+
+```typescript
+import { describe, it, expect, beforeEach } from 'vitest';
+
+describe('CreateArticleCommandHandler', () => {
+  let handler: CreateArticleCommandHandler;
+  let repository: InMemoryArticleRepository; // Use concrete type, not interface
+
+  beforeEach(() => {
+    repository = new InMemoryArticleRepository();
+    handler = new CreateArticleCommandHandler(repository);
+  });
+
+  it('should create and save a new article', async () => {
+    // Arrange
+    const command = {
+      props: {
+        title: 'Test Article',
+        content: 'Test content',
+        correlationId: 'test-id',
+      },
+    };
+
+    // Act
+    await handler.execute(command);
+
+    // Assert
+    const articles = await repository.findAll(); // findAll() only exists on InMemory implementation
+    expect(articles).toHaveLength(1);
+    expect(articles[0].title).toBe('Test Article');
+  });
+});
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+npm run test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:cov
+
+# Run tests with UI
+npm run test:ui
+```
+
+```
+
+```
