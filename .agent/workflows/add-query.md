@@ -172,16 +172,16 @@ Create `src/modules/[feature]/application/queries/[verb-noun]/[verb-noun].query.
 
 ```bash
 # Run tests
-npm run test
+yarn run test
 
 # Run linter
-npm run lint
+yarn run lint
 ```
 
 Start the server and check Swagger:
 
 ```bash
-npm run start:dev
+yarn run start:dev
 ```
 
 Visit `http://localhost:3000/api/docs`

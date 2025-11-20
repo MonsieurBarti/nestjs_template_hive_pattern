@@ -13,25 +13,25 @@ This workflow covers running tests, debugging failures, and understanding test o
 ### Run All Tests
 
 ```bash
-npm run test
+yarn run test
 ```
 
 ### Run Tests in Watch Mode
 
 ```bash
-npm run test:watch
+yarn run test:watch
 ```
 
 ### Run Tests with Coverage
 
 ```bash
-npm run test:cov
+yarn run test:cov
 ```
 
 ### Run Tests with UI
 
 ```bash
-npm run test:ui
+yarn run test:ui
 ```
 
 ### Run Specific Test File
@@ -91,7 +91,7 @@ it('should create article', () => {
 ### 3. Use Vitest UI for Interactive Debugging
 
 ```bash
-npm run test:ui
+yarn run test:ui
 ```
 
 This opens a browser interface where you can:
@@ -197,7 +197,7 @@ const article = Article.create({
 ### View Coverage Report
 
 ```bash
-npm run test:cov
+yarn run test:cov
 ```
 
 This generates a coverage report in `coverage/` directory.
@@ -297,10 +297,10 @@ Add to your CI pipeline:
 ```yaml
 # .github/workflows/test.yml
 - name: Run tests
-  run: npm run test
+  run: yarn run test
 
 - name: Check coverage
-  run: npm run test:cov
+  run: yarn run test:cov
 ```
 
 ## Next Steps

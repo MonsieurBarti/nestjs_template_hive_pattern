@@ -139,16 +139,16 @@ Create `src/modules/[feature]/application/commands/[verb-noun]/[verb-noun].comma
 
 ```bash
 # Run tests
-npm run test
+yarn run test
 
 # Run linter
-npm run lint
+yarn run lint
 ```
 
 If exposing via HTTP, start the server and check Swagger:
 
 ```bash
-npm run start:dev
+yarn run start:dev
 ```
 
 Visit `http://localhost:3000/api/docs`

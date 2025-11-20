@@ -55,7 +55,7 @@ src/modules/article/
 ### Install Dependencies
 
 ```bash
-npm install
+yarn install
 ```
 
 ### Set Up Environment
@@ -72,7 +72,7 @@ IS_LOCAL=true
 ### Start the Server
 
 ```bash
-npm run start:dev
+yarn start:dev
 ```
 
 ### Explore the API
@@ -95,7 +95,7 @@ Try these endpoints:
 ### Run the Tests
 
 ```bash
-npm run test
+yarn test
 ```
 
 You should see all tests passing ✅
@@ -232,25 +232,25 @@ The AI will follow the workflows and templates automatically!
 ### Run Tests
 
 ```bash
-npm run test
+yarn test
 ```
 
 ### Run in Watch Mode
 
 ```bash
-npm run test:watch
+yarn test:watch
 ```
 
 ### Check Coverage
 
 ```bash
-npm run test:cov
+yarn test:cov
 ```
 
 ### Test the API
 
 ```bash
-npm run start:dev
+yarn start:dev
 ```
 
 Visit **http://localhost:3000/api/docs** and try your new endpoints!

@@ -7,7 +7,7 @@ This guide explains how to set up and use the database with Prisma.
 ### 1. Install Dependencies
 
 ```bash
-npm install
+yarn install
 ```
 
 ### 2. Set Up Database URL
@@ -21,13 +21,13 @@ DATABASE_URL="postgresql://user:password@localhost:5432/mydb?schema=public"
 ### 3. Generate Prisma Client
 
 ```bash
-npm run prisma:generate
+yarn prisma:generate
 ```
 
 ### 4. Run Migrations
 
 ```bash
-npm run prisma:migrate
+yarn prisma:migrate
 ```
 
 This will create the database tables based on your Prisma schema.
@@ -39,7 +39,7 @@ This will create the database tables based on your Prisma schema.
 After modifying `prisma/schema.prisma`:
 
 ```bash
-npm run prisma:migrate
+yarn prisma:migrate
 ```
 
 Prisma will:
@@ -54,7 +54,7 @@ Prisma will:
 Use Prisma Studio to browse and edit your data:
 
 ```bash
-npm run prisma:studio
+yarn prisma:studio
 ```
 
 This opens a GUI at `http://localhost:5555`
@@ -114,13 +114,13 @@ model Article {
 
 ```bash
 # Generate Prisma Client
-npm run prisma:generate
+yarn prisma:generate
 
 # Create and apply migration
-npm run prisma:migrate
+yarn prisma:migrate
 
 # Open Prisma Studio
-npm run prisma:studio
+yarn prisma:studio
 
 # Reset database (WARNING: deletes all data)
 npx prisma migrate reset
@@ -137,7 +137,7 @@ npx prisma format
 ### 1. Build
 
 ```bash
-npm run build
+yarn build
 ```
 
 ### 2. Run Migrations
@@ -151,7 +151,7 @@ Use `migrate deploy` in production (not `migrate dev`).
 ### 3. Start Application
 
 ```bash
-npm run start:prod
+yarn start:prod
 ```
 
 ## Docker Setup
@@ -187,7 +187,7 @@ DATABASE_URL="postgresql://nest_user:nest_password@localhost:5432/nest_db?schema
 Run:
 
 ```bash
-npm run prisma:generate
+yarn prisma:generate
 ```
 
 ### Error: "Migration failed"
@@ -199,7 +199,7 @@ npm run prisma:generate
 
 ### Type Errors After Schema Change
 
-1. Regenerate Prisma Client: `npm run prisma:generate`
+1. Regenerate Prisma Client: `yarn prisma:generate`
 2. Restart TypeScript server in VSCode
 3. Update mappers if field names changed
 

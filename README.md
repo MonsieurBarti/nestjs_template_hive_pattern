@@ -43,7 +43,7 @@ For detailed architecture documentation, see [`src/modules/ARCHITECTURE.md`](src
 ### Installation
 
 ```bash
-npm install
+yarn install
 ```
 
 ### Environment Variables
@@ -74,10 +74,10 @@ cp .env.example .env
 docker-compose up -d postgres
 
 # Generate Prisma Client
-npm run prisma:generate
+yarn prisma:generate
 
 # Run migrations
-npm run prisma:migrate
+yarn prisma:migrate
 ```
 
 The template includes both InMemory (for testing) and SQL (for production) repository implementations.
@@ -86,16 +86,16 @@ The template includes both InMemory (for testing) and SQL (for production) repos
 
 ```bash
 # Start in watch mode
-npm run start:dev
+yarn start:dev
 
 # Build
-npm run build
+yarn build
 
 # Lint
-npm run lint
+yarn lint
 
 # Format
-npm run format
+yarn format
 ```
 
 ### Docker

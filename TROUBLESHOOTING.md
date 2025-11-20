@@ -386,7 +386,7 @@ const id = article._id; // ❌ Bad
 1. Run lint manually to see errors:
 
 ```bash
-npm run lint
+yarn lint
 ```
 
 2. Fix errors or bypass for emergency commits:
@@ -409,7 +409,7 @@ git commit --no-verify -m "message"
 **Solution**:
 
 ```bash
-npm install --save-dev husky lint-staged --legacy-peer-deps
+yarn add -D husky lint-staged
 npx husky init
 ```
 
@@ -477,7 +477,7 @@ await someAsyncOperation();
 1. Install coverage package:
 
 ```bash
-npm install --save-dev @vitest/coverage-v8
+yarn add -D @vitest/coverage-v8
 ```
 
 2. Add to `vitest.config.ts`:
@@ -528,7 +528,7 @@ export default defineConfig({
 2. Rebuild:
 
 ```bash
-npm run build
+yarn build
 ```
 
 3. Restart debugger
@@ -612,7 +612,7 @@ npx madge --circular src/
 
 ```bash
 # Check for syntax errors
-npm run lint
+yarn lint
 
 # Run specific test
 npx vitest run path/to/test.spec.ts
@@ -621,7 +621,7 @@ npx vitest run path/to/test.spec.ts
 npx tsc --noEmit
 
 # View detailed logs
-LOG_LEVEL=debug npm run start:dev
+LOG_LEVEL=debug yarn start:dev
 
 # Check for circular dependencies
 npx madge --circular src/
@@ -635,7 +635,7 @@ If you've tried the solutions above and still have issues:
 
 1. **Verify your setup**:
    - Node version: `node --version` (should be 20+)
-   - Dependencies installed: `npm install`
+   - Dependencies installed: `yarn install`
    - TypeScript version: `npx tsc --version`
 
 2. **Create minimal reproduction**:

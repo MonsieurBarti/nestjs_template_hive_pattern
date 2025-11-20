@@ -17,31 +17,33 @@
 
 **Violation of these rules = Broken Code.**
 
-1.  **Correlation ID is GOD**:
+1.  **Use Yarn**: Always use `yarn` instead of `npm` for all commands.
+
+2.  **Correlation ID is GOD**:
     - Every Controller Endpoint MUST have `@CorrelationId()`.
     - Every Command/Query `props` MUST have `correlationId: string`.
     - Every Log MUST include `correlationId` (via context or explicit field).
 
-2.  **Logging**:
+3.  **Logging**:
     - NEVER use `console.log`, `console.info`, or `console.debug`.
     - ALWAYS use the injected `BaseLogger` (via `@InjectLogger()` or constructor injection).
     - Use `logger.log()`, `logger.error()`, `logger.warn()`, `logger.debug()`.
 
-3.  **CQRS Strictness**:
+4.  **CQRS Strictness**:
     - **Commands**: MUST return `void`. MUST extend `TypedCommand<void>`.
     - **Queries**: MUST return data. MUST extend `TypedQuery<Result>`.
     - **Props**: MUST use a `props` object.
 
-4.  **Database & Performance**:
+5.  **Database & Performance**:
     - **Labels**: EVERY Prisma query MUST use `.withLabel('context.operation')`.
     - **No Direct Models**: Repositories MUST return Domain Entities, NOT Prisma types.
     - **Mappers**: ALWAYS use a Mapper class (Domain <-> Persistence).
 
-5.  **Dependency Injection**:
+6.  **Dependency Injection**:
     - **Symbols**: Use `Symbol('MY_TOKEN')` for all DI tokens.
     - **Tokens File**: Define tokens in `[module].tokens.ts`.
 
-6.  **Domain Logic**:
+7.  **Domain Logic**:
     - **Entities**: Logic belongs here. Use Factory methods (`create()`). Private constructors.
     - **Controllers**: ZERO business logic. Only DTO transformation and Bus execution.
     - **Validation**: NEVER use `class-validator`. ALWAYS use `zod` with `@ZodSchema`.
@@ -196,16 +198,15 @@ describe('CreateArticleCommandHandler', () => {
 
 ```bash
 # Run all tests
-npm run test
+yarn test
 
 # Run tests in watch mode
-npm run test:watch
+yarn test:watch
 
 # Run tests with coverage
-npm run test:cov
+yarn test:cov
 
 # Run tests with UI
-npm run test:ui
 ```
 
 ```

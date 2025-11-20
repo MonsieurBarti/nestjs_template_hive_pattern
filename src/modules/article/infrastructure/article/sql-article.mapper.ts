@@ -1,8 +1,8 @@
+import { Prisma } from '@prisma/client';
 import { Article } from '../../domain/article/article';
-import { Article as PrismaArticle } from '@prisma/client';
 
 export class SqlArticleMapper {
-  static toDomain(raw: PrismaArticle): Article {
+  static toDomain(raw: Prisma.ArticleGetPayload<true>): Article {
     return Article.create({
       id: raw.id,
       title: raw.title,
@@ -13,13 +13,7 @@ export class SqlArticleMapper {
     });
   }
 
-  static toPersistence(article: Article): Omit<
-    PrismaArticle,
-    'created_at' | 'updated_at'
-  > & {
-    created_at: Date;
-    updated_at: Date;
-  } {
+  static toPersistence(article: Article): Prisma.ArticleCreateInput {
     return {
       id: article.id,
       title: article.title,

@@ -167,13 +167,13 @@ Use templates from `AI_TEMPLATES.md` sections 8, 9, and 10.
 
 ```bash
 # Run linter
-npm run lint
+yarn run lint
 
 # Run tests
-npm run test
+yarn run test
 
 # Start dev server
-npm run start:dev
+yarn run start:dev
 ```
 
 Visit `http://localhost:3000/api/docs` to see your new endpoints in Swagger.
