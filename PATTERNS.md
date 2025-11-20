@@ -37,9 +37,9 @@ Domain events represent something significant that happened in the domain. They 
 import { z } from 'zod';
 
 export const ArticlePublishedEventPropsSchema = z.object({
-  articleId: z.string().uuid(),
+  articleId: z.uuid(),
   title: z.string(),
-  authorId: z.string().uuid(),
+  authorId: z.uuid(),
   publishedAt: z.date(),
 });
 
@@ -568,7 +568,7 @@ export const DateRangeSchema = z
 ### Custom Zod Validators
 
 ```typescript
-const UUIDSchema = z.string().uuid();
+const UUIDSchema = z.uuid();
 const EmailSchema = z.string().email();
 const URLSchema = z.string().url();
 

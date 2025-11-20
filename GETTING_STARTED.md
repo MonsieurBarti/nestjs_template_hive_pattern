@@ -126,7 +126,7 @@ import { z } from 'zod';
 import { randomUUID } from 'crypto';
 
 export const TaskPropsSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   title: z.string().min(1),
   description: z.string(),
   completed: z.boolean(),

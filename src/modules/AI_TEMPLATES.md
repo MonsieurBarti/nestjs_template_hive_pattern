@@ -12,7 +12,7 @@ import { BaseDomainError } from "src/modules/shared/errors";
 
 // --- Props Schema ---
 export const [Entity]PropsSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
   createdAt: z.date(),
   updatedAt: z.date(),
   // Add other fields
@@ -444,7 +444,7 @@ import { z } from 'zod';
 
 // --- Event Props Schema ---
 export const [Entity][Action]EventPropsSchema = z.object({
-  [entity]Id: z.string().uuid(),
+  [entity]Id: z.uuid(),
   occurredAt: z.date(),
   // Add other event data
 });

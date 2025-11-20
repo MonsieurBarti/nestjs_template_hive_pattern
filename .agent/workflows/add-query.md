@@ -260,7 +260,7 @@ Add query parameters to DTO:
 ```typescript
 export const FindArticlesSchema = z.object({
   status: z.enum(['draft', 'published']).optional(),
-  authorId: z.string().uuid().optional(),
+  authorId: z.uuid().optional(),
   limit: z.number().min(1).max(100).default(10),
   offset: z.number().min(0).default(0),
 });
